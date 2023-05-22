@@ -21,12 +21,12 @@ export default{
         if(state.url){
             const vid = YouTubeGetID(state.url);
             console.log(vid);
-                const res = await axios.get(`http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos/${vid}`);
+                const res = await axios.get(`https://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos/${vid}`);
                 console.log(res.data);
                 try {
                     if(!res.data.hasOwnProperty('vid')){
                     
-                        axios.post('http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos',{vid:vid})
+                        axios.post('https://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos',{vid:vid})
                         .then(response => {
                             console.log(response.data);
                             if(response.data.hasOwnProperty('vid')){
