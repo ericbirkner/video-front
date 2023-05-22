@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+:root {
+
+}
+
+
+
+body {
+  background: #F5F5F5;
+  font-family: 'Roboto', sans-serif;
+  color: #020202;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.video{
+  background-size: cover;
+  position: relative;
+  color: #fff;
+  min-height: 200px;
+}
+
+.video .duration{
+  background-color: rgba(0,0,0,0.8);
+  position:absolute;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.video .delete{
+  background-color: rgba(0,0,0,1);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  position:absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 1.1em;
+  border-radius: 3px;
+  padding: 3px 7px;
+  cursor: pointer;
+}
+
+button.anadir{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  background: #136AE4;  
+}
+
+.error{
+  color: red;
+}
