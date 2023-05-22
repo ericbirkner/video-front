@@ -11,24 +11,38 @@ export default{
   setup(props,ctx) {
     const state = reactive({
       url: '',
-      error: false
+      error: false,
+      repeat: false
     });
 
-    const postVideo = () => {
+    const postVideo = async () => {
         state.error = false;
+        state.repeat = false;
         if(state.url){
             const vid = YouTubeGetID(state.url);
             console.log(vid);
-            axios.post('http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos',{vid:vid})
-            .then(response => {
-                console.log(response.data);
-                if(response.data.hasOwnProperty('vid')){
-                    ctx.emit('callVideos');
+                const res = await axios.get(`http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos/${vid}`);
+                console.log(res.data);
+                try {
+                    if(!res.data.hasOwnProperty('vid')){
+                    
+                        axios.post('http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos',{vid:vid})
+                        .then(response => {
+                            console.log(response.data);
+                            if(response.data.hasOwnProperty('vid')){
+                                ctx.emit('callVideos');
+                            }
+                        }).catch(error => {
+                            console.log(error)
+                            state.error = true;
+                        })
+                    }else{
+                        state.repeat = true;
+                    }    
+                } catch (error) {
+                    console.log(error)
+                    state.error = true;
                 }
-            }).catch(error => {
-                console.log(error)
-                state.error = true;
-            })
         }
         
     }
@@ -52,10 +66,13 @@ export default{
     <h3 @click="$parent.getVideos();">Añadir nuevo video</h3>
     <div class="input-group mb-3">
         <input v-model="state.url" type="text" class="form-control" placeholder="https://www.youtube.com/watch?v=tNXOzZVIVm0">
-        <button class="btn btn-primary ps-5 pe-5 anadir" type="button" id="button-addon2" @click="postVideo">Añadir</button>
+        <button class="btn btn-primary ps-md-5 pe-md-5 anadir" type="button" id="button-addon2" @click="postVideo">Añadir</button>
     </div>
     <div v-if="state.error" class="error" role="alert">
         <small>Error al subir Url, pruebe con una correcta.</small>
+    </div>
+    <div v-if="state.repeat" class="error" role="alert">
+        <small>El video ingresado ya existe.</small>
     </div>
 </template>
 

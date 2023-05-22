@@ -3,16 +3,24 @@ import axios from 'axios';
 import Video from '../components/Video.vue';
 import AddVideo from '../components/AddVideo.vue';
 import Loading from '../components/Loading.vue';
+import Confirm from '../components/Confirm.vue';
+import ModalVideo from '../components/ModalVideo.vue';
 import { reactive, toRefs, computed, onMounted, ref } from "vue";
 export default {
   components: {
     Video,
     AddVideo,
-    Loading
+    Loading,
+    Confirm,
+    ModalVideo
   },
   setup() {
     const state = reactive({
       videos: [],
+      showConfirm:false,
+      showModalVideo:false,
+      id:'',
+      currentVideo:{}
     });
 
     const getVideos = () => {
@@ -22,8 +30,18 @@ export default {
         state.videos = response.data
       })
     }
-    const deleteVideo = (vid)=>{
-      alert(vid)
+    const deleteVideo = ()=>{
+      console.log(state.id);
+      if(state.id>0){
+        axios.delete(`http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos/${state.id}`)
+        .then(response => {
+          getVideos();
+          state.showConfirm=false;
+        }).catch(error => {
+          console.log(error);
+        })
+      }
+       
     }    
 
     onMounted(() => {
@@ -58,5 +76,7 @@ export default {
       <loading></loading>
     </div>
   </div>
+  <confirm v-if="state.showConfirm" :vid="state.vid"></confirm>
+  <modal-video v-if="state.showModalVideo" :video="state.currentVideo"></modal-video>
  </div>
 </template>
