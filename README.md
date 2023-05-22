@@ -30,10 +30,10 @@ npm run build
 - Modo de uso
 
     -   Agregar video
-    ![alt text](http://simple2.cl/video-app/screen1.jpg)
+        ![alt text](http://simple2.cl/video-app/screen1.jpg)
 
     -   Borrar video
-    ![alt text](http://simple2.cl/video-app/screen2.jpg)
+        ![alt text](http://simple2.cl/video-app/screen2.jpg)
 
     -   Confirmar eliminación de video
-    ![alt text](http://simple2.cl/video-app/screen2.jpg)
+        ![alt text](http://simple2.cl/video-app/screen3.jpg)
