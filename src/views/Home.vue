@@ -24,7 +24,7 @@ export default {
     });
 
     const getVideos = () => {
-      axios.get('http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos')
+      axios.get('http://localhost/api/videos')
       .then(response => {
         console.log(response.data);
         state.videos = response.data
@@ -33,7 +33,7 @@ export default {
     const deleteVideo = ()=>{
       console.log(state.id);
       if(state.id>0){
-        axios.delete(`http://ec2-44-210-126-6.compute-1.amazonaws.com/api/videos/${state.id}`)
+        axios.delete(`http://localhost/api/videos/${state.id}`)
         .then(response => {
           getVideos();
           state.showConfirm=false;
